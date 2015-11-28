@@ -7,7 +7,7 @@
   changed_when: "dpkg_result.stdout.startswith('Selecting')"
 
 - name: Update config
-  template: src=influxdb.conf dest=/etc/opt/influxdb/influxdb.conf
+  template: src=influxdb.conf dest=/etc/influxdb/influxdb.conf
 
 - name: Start InfluxDB
   service: name=influxdb state=restarted
