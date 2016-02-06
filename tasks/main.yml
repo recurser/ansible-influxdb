@@ -9,10 +9,6 @@
 - name: Update config
   template: src=influxdb.conf dest=/etc/influxdb/influxdb.conf
 
-- name: Turn on the TSM engine
-  sudo: yes
-  lineinfile: dest=/etc/influxdb/influxdb.conf regexp="^.*engine =" line="  engine = \"tsm1\""
-
 - name: Start InfluxDB
   service: name=influxdb state=restarted
   notify:
