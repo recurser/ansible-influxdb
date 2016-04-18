@@ -1,5 +1,5 @@
 influxdb:
-  version: 0.10.0-0.beta1
+  version: 0.12.0-1
   raft_port: 8090
   seed_servers: [ ]
   replication_factor: 1
