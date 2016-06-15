@@ -1,5 +1,7 @@
 - name: Fetch package
-  get_url: url=http://s3.amazonaws.com/influxdb/influxdb_{{ influxdb.version }}_amd64.deb dest=/usr/local/src/influxdb_{{ influxdb.version }}_amd64.deb
+  #get_url: url=http://dl.influxdata.com/influxdb/releases/influxdb_{{ influxdb.version }}_amd64.deb dest=/usr/local/src/influxdb_{{ influxdb.version }}_amd64.deb #validate_certs=no
+  # Influx guys moved the downloads to dl.influxdata.com, which is hosted with SNI and breaks ansible fetch, so we host packages ourselves.
+  get_url: url=https://s3.amazonaws.com/dynomatic/ansible/deb/influxdb_{{ influxdb.version }}_amd64.deb dest=/usr/local/src/influxdb_{{ influxdb.version }}_amd64.deb
 
 - name: Install package
   command: dpkg --skip-same-version -i /usr/local/src/influxdb_{{ influxdb.version }}_amd64.deb
@@ -8,8 +10,3 @@
 
 - name: Update config
   template: src=influxdb.conf dest=/etc/influxdb/influxdb.conf
-
-- name: Start InfluxDB
-  service: name=influxdb state=restarted
-  notify:
-    - wait for influxdb port
